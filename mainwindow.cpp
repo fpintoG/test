@@ -8,7 +8,6 @@
 using namespace std;
 using namespace cv;
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
