@@ -3,6 +3,7 @@
 #include "ui_mainwindow.h"
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 using namespace cv;
@@ -13,7 +14,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    
+    unsigned t0, t1;
+    t0=clock();    
+        
     Mat inputImage = cv::imread("/home/nakio/Escritorio/fox.jpg");
     Mat auxImage = cv::imread("/home/nakio/Escritorio/fox.jpg");
 
@@ -49,6 +53,9 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     imshow("Imagen Original",inputImage);
     imshow("Imagen Modificada",dst);
+    t1 = clock();
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << "Execution Time: " << time << endl;    
 }
 
 MainWindow::~MainWindow()
