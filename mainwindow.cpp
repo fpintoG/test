@@ -8,7 +8,7 @@
 using namespace std;
 using namespace cv;
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QStringList arguments, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -16,14 +16,19 @@ MainWindow::MainWindow(QWidget *parent) :
     
     unsigned t0, t1;
     t0=clock();    
-        
-    Mat inputImage = cv::imread("/home/nakio/Escritorio/fox.jpg");
-    Mat auxImage = cv::imread("/home/nakio/Escritorio/fox.jpg");
 
-    float gamma = 0.5;
+    //direccion de la imagen en el primer paramtero
+    Mat inputImage = cv::imread(arguments[1].toUtf8().constData());
+    Mat auxImage = cv::imread(arguments[1].toUtf8().constData());
+
+    //Mat inputImage = cv::imread("/home/fpinto/PDI/fox.jpg");
+    //Mat auxImage = cv::imread("/home/fpinto/PDI/fox.jpg");
+
+    //gamma se pasa como segundo parametro
+    float gamma = arguments[1].toUtf8().toInt();
     unsigned char lut[256];
     for (int i = 0; i < 256; i++){
-    lut[i] = saturate_cast<uchar>(pow((float)(i / 255.0), gamma) * 255.0f);
+        lut[i] = saturate_cast<uchar>(pow((float)(i / 255.0), gamma) * 255.0f);
     }
     Mat dst = auxImage.clone();
     const int channels = dst.channels();
